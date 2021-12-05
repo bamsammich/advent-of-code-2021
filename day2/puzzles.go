@@ -1,0 +1,61 @@
+package day2
+
+import (
+	"fmt"
+	"log"
+	"strconv"
+	"strings"
+
+	"github.com/echojc/aocutil"
+)
+
+func puzzle1(input []string) int {
+	var x, y = 0, 0
+	for _, move := range input {
+		moveparts := strings.Split(move, " ")
+		distance, _ := strconv.Atoi(moveparts[1])
+		switch moveparts[0] {
+		case "forward":
+			x += distance
+		case "up":
+			y -= distance
+		case "down":
+			y += distance
+		}
+	}
+	return (x * y)
+}
+
+func puzzle2(input []string) int {
+	var x, y, aim = 0, 0, 0
+	for _, move := range input {
+		moveparts := strings.Split(move, " ")
+		distance, _ := strconv.Atoi(moveparts[1])
+		switch moveparts[0] {
+		case "forward":
+			x += distance
+			y += distance * aim
+		case "up":
+			aim -= distance
+		case "down":
+			aim += distance
+		}
+	}
+	return (x * y)
+}
+
+func Run() {
+	input, err := aocutil.NewInputFromFile("session_id")
+	if err != nil {
+		log.Fatal(err)
+	}
+	data, err := input.Strings(2021, 2)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Day 2:")
+	fmt.Println("------------------")
+	fmt.Printf("Puzzle 1: %d\n", puzzle1(data))
+	fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
+	fmt.Println("------------------")
+}
