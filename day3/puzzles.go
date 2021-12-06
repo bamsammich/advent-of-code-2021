@@ -74,15 +74,14 @@ func filterData(input []string, evalFunc func(ones int, comparator int) int) str
 }
 
 func filterValues(data []string, position int, mostCommon bool) string {
-	// Couldn 't figure this puzzle out, found help here:
-	//		https://github.com/lynerist/Advent-of-code-2021-golang
 	if len(data) == 1 {
 		return data[0]
 	}
-	var bitMap = map[int][]string{
+	var bitMap = map[rune][]string{
 		0: make([]string, 0),
 		1: make([]string, 0),
 	}
+
 	for _, val := range data {
 		if val[position] == '0' {
 			bitMap[0] = append(bitMap[0], val)
@@ -90,10 +89,14 @@ func filterValues(data []string, position int, mostCommon bool) string {
 			bitMap[1] = append(bitMap[1], val)
 		}
 	}
-	if len(bitMap[1]) > len(bitMap[0]) == mostCommon {
+
+	if len(bitMap[1]) >= len(bitMap[0]) == mostCommon {
 		return filterValues(bitMap[1], position+1, mostCommon)
 	}
-	return filterValues(bitMap[0], position+1, mostCommon)
+	if len(bitMap[1]) >= len(bitMap[0]) == !mostCommon {
+		return filterValues(bitMap[0], position+1, mostCommon)
+	}
+	return ""
 }
 
 func puzzle2(input []string) int {
