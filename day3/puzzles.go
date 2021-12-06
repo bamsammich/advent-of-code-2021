@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"strconv"
-	"strings"
 
 	"github.com/echojc/aocutil"
 )
@@ -52,25 +51,6 @@ func puzzle1(input []string) int {
 	}
 
 	return bitstringToInt(string(gamma)) * bitstringToInt(string(epsilon))
-}
-
-func filterData(input []string, evalFunc func(ones int, comparator int) int) string {
-	var filter string
-	for i := 0; i < 12; i++ {
-		posOnes := countOnesInPosition(input, i)
-		filter += strconv.Itoa(evalFunc(posOnes, len(input)))
-		var matches = []string{}
-		for _, d := range input {
-			if strings.HasPrefix(d, filter) {
-				matches = append(matches, d)
-			}
-		}
-		input = matches
-		if len(input) == 1 {
-			return input[0]
-		}
-	}
-	return ""
 }
 
 func filterValues(data []string, position int, mostCommon bool) string {
