@@ -147,16 +147,12 @@ func parseInput(input []string) Game {
 func puzzle1(input []string) int {
 	game := parseInput(input)
 	winners := game.FirstWinner()
-
-	fmt.Println(winners)
 	return winners[0].Board.Score() * winners[0].WinningMark
 }
 
 func puzzle2(input []string) int {
 	game := parseInput(input)
 	winners := game.LastWinner()
-
-	fmt.Println(winners)
 	return winners[0].Board.Score() * winners[0].WinningMark
 }
 
