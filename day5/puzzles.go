@@ -73,6 +73,7 @@ func (l *Line) Plot(graph *Graph) {
 		for _, y := range makeRange(l.A.Y, l.B.Y) {
 			graph[x][y]++
 		}
+		return
 	}
 	if l.IsHorizontal() {
 		// Then y doesn't change
@@ -80,6 +81,12 @@ func (l *Line) Plot(graph *Graph) {
 		for _, x := range makeRange(l.A.X, l.B.X) {
 			graph[x][y]++
 		}
+		return
+	}
+	xRange := makeRange(l.A.X, l.B.X)
+	yRange := makeRange(l.A.Y, l.B.Y)
+	for i := 0; i < len(xRange); i++ {
+		graph[xRange[i]][yRange[i]]++
 	}
 }
 
@@ -145,6 +152,19 @@ func puzzle1(input []string) int {
 	return graph.CountIntersections()
 }
 
+func puzzle2(input []string) int {
+	lines, err := parseInput(input)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var graph Graph
+	for _, line := range lines {
+		line.Plot(&graph)
+	}
+
+	return graph.CountIntersections()
+}
+
 func Run() {
 	input, err := aocutil.NewInputFromFile("session_id")
 	if err != nil {
@@ -157,6 +177,6 @@ func Run() {
 	fmt.Println("Day 5:")
 	fmt.Println("------------------")
 	fmt.Printf("Puzzle 1: %v\n", puzzle1(data))
-	// fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
+	fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
 	fmt.Println("------------------")
 }
