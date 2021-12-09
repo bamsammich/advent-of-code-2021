@@ -90,19 +90,6 @@ func (l *Line) Plot(graph *Graph) {
 	}
 }
 
-func printGraph(graph Graph) {
-	for i := 0; i < len(graph); i++ {
-		for j := 0; j < len(graph[i]); j++ {
-			if graph[i][j] == 0 {
-				fmt.Printf("%s", ".")
-				continue
-			}
-			fmt.Printf("%d", graph[i][j])
-		}
-		fmt.Print("\n")
-	}
-}
-
 func parseCoordinate(rawCoord string) (*Coordinate, error) {
 	if !regexp.MustCompile(`\d+,\d+`).MatchString(rawCoord) {
 		return nil, errors.New("can't parse coordinate; not in the format \"X,Y\" ")
