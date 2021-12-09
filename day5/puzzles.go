@@ -13,6 +13,18 @@ import (
 
 type Graph [1000][1000]int
 
+func (g Graph) CountIntersections() int {
+	var intersections int
+	for i := 0; i < len(g); i++ {
+		for j := 0; j < len(g[i]); j++ {
+			if g[i][j] > 1 {
+				intersections++
+			}
+		}
+	}
+	return intersections
+}
+
 type Coordinate struct {
 	X, Y int
 }
@@ -129,15 +141,8 @@ func puzzle1(input []string) int {
 			line.Plot(&graph)
 		}
 	}
-	var overlapCount int
-	for i := 0; i < len(graph); i++ {
-		for j := 0; j < len(graph[i]); j++ {
-			if graph[i][j] > 1 {
-				overlapCount++
-			}
-		}
-	}
-	return overlapCount
+
+	return graph.CountIntersections()
 }
 
 func Run() {
