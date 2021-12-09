@@ -20,10 +20,6 @@ func countOnes(data []string) map[int]int {
 	return out
 }
 
-func countOnesInPosition(data []string, position int) int {
-	return countOnes(data)[position]
-}
-
 func bitstringToInt(s string) int {
 	v, err := strconv.ParseInt(s, 2, 64)
 	if err != nil {
