@@ -119,5 +119,5 @@ func Run() {
 		log.Fatal(err)
 	}
 
-	util.PrintResults(6, puzzle1(data), puzzle2(data))
+	util.PrintResults(8, puzzle1(data), puzzle2(data))
 }
