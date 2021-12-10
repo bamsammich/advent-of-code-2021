@@ -1,7 +1,7 @@
 package day3
 
 import (
-	"fmt"
+	"advent-of-code-2021/util"
 	"log"
 	"strconv"
 
@@ -90,9 +90,5 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Day 3:")
-	fmt.Println("------------------")
-	fmt.Printf("Puzzle 1: %d\n", puzzle1(data))
-	fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
-	fmt.Println("------------------")
+	util.PrintResults(3, puzzle1(data), puzzle2(data))
 }

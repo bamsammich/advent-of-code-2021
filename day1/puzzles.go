@@ -1,7 +1,7 @@
 package day1
 
 import (
-	"fmt"
+	"advent-of-code-2021/util"
 	"log"
 
 	"github.com/echojc/aocutil"
@@ -53,9 +53,5 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Day 1:")
-	fmt.Println("------------------")
-	fmt.Printf("Puzzle 1: %d\n", puzzle1(data))
-	fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
-	fmt.Println("------------------")
+	util.PrintResults(1, puzzle1(data), puzzle2(data))
 }

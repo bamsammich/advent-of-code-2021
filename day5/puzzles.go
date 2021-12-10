@@ -1,6 +1,7 @@
 package day5
 
 import (
+	"advent-of-code-2021/util"
 	"errors"
 	"fmt"
 	"log"
@@ -161,9 +162,5 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Day 5:")
-	fmt.Println("------------------")
-	fmt.Printf("Puzzle 1: %v\n", puzzle1(data))
-	fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
-	fmt.Println("------------------")
+	util.PrintResults(5, puzzle1(data), puzzle2(data))
 }

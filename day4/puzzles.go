@@ -1,7 +1,7 @@
 package day4
 
 import (
-	"fmt"
+	"advent-of-code-2021/util"
 	"log"
 	"sort"
 	"strconv"
@@ -44,7 +44,6 @@ func (g *Game) Winners() map[int][]Win {
 
 func (g *Game) FirstWinner() []Win {
 	winners := g.Winners()
-	fmt.Println(len(winners))
 	for i := 0; i < len(winners); i++ {
 		if wins, ok := winners[i]; ok {
 			return wins
@@ -165,9 +164,5 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Day 4:")
-	fmt.Println("------------------")
-	fmt.Printf("Puzzle 1: %v\n", puzzle1(data))
-	fmt.Printf("Puzzle 2: %d\n", puzzle2(data))
-	fmt.Println("------------------")
+	util.PrintResults(4, puzzle1(data), puzzle2(data))
 }

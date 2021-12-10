@@ -1,7 +1,7 @@
 package day7
 
 import (
-	"fmt"
+	"advent-of-code-2021/util"
 	"log"
 	"math"
 	"sort"
@@ -74,10 +74,5 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("Day 5:")
-	fmt.Println("------------------")
-	fmt.Printf("Puzzle 1: %v\n", puzzle1(xPositions))
-	fmt.Printf("Puzzle 2: %d\n", puzzle2(xPositions))
-	fmt.Println("------------------")
+	util.PrintResults(7, puzzle1(xPositions), puzzle2(xPositions))
 }
