@@ -2,7 +2,6 @@ package day9
 
 import (
 	"advent-of-code-2021/util"
-	"fmt"
 	"log"
 	"sort"
 	"strconv"
@@ -111,7 +110,6 @@ func puzzle2(data []string) int {
 		basinSizes = append(basinSizes, len(getBasin(coord, heatmap)))
 	}
 	sort.Ints(basinSizes)
-	fmt.Println(basinSizes)
 	var product = basinSizes[len(basinSizes)-3]
 	for _, v := range basinSizes[len(basinSizes)-2:] {
 		product *= v
