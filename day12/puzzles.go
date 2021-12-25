@@ -1,7 +1,6 @@
 package day12
 
 import (
-	"fmt"
 	"log"
 	"regexp"
 	"strings"
@@ -30,7 +29,7 @@ func parseInput(input []string) map[string][]string {
 	return relMap
 }
 
-func Traverse(from string, relations map[string][]string, visits map[string]int) [][]string {
+func Traverse(from string, relations map[string][]string, visits map[string]int, forbidVisitingSmallCaveTwice bool) [][]string {
 	var (
 		neighbors = relations[from]
 		output    [][]string
@@ -40,8 +39,13 @@ func Traverse(from string, relations map[string][]string, visits map[string]int)
 			output = append(output, []string{n})
 			continue
 		}
+		smallCaveVisitedTwice := forbidVisitingSmallCaveTwice
 		if !regexp.MustCompile(`[A-Z]+`).MatchString(n) && visits[n] > 0 {
-			continue
+			if !smallCaveVisitedTwice {
+				smallCaveVisitedTwice = true
+			} else {
+				continue
+			}
 		}
 		visitsCheckpoint := make(map[string]int)
 		for k, v := range visits {
@@ -49,7 +53,7 @@ func Traverse(from string, relations map[string][]string, visits map[string]int)
 		}
 		visitsCheckpoint[n]++
 		// not the end or an already-visited small cave
-		for _, p := range Traverse(n, relations, visitsCheckpoint) {
+		for _, p := range Traverse(n, relations, visitsCheckpoint, smallCaveVisitedTwice) {
 			nodes := append([]string{n}, p...)
 			output = append(output, nodes)
 		}
@@ -59,11 +63,10 @@ func Traverse(from string, relations map[string][]string, visits map[string]int)
 }
 
 func puzzle1(data []string) int {
-	paths := Traverse("start", parseInput(data), map[string]int{})
-	for _, p := range paths {
-		fmt.Println(p)
-	}
-	return len(Traverse("start", parseInput(data), map[string]int{}))
+	return len(Traverse("start", parseInput(data), map[string]int{}, true))
+}
+func puzzle2(data []string) int {
+	return len(Traverse("start", parseInput(data), map[string]int{}, false))
 }
 
 func Run() {
@@ -77,5 +80,5 @@ func Run() {
 		log.Fatal(err)
 	}
 
-	util.PrintResults(day, puzzle1(data), nil)
+	util.PrintResults(day, puzzle1(data), puzzle2(data))
 }
