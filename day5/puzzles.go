@@ -1,13 +1,14 @@
 package day5
 
 import (
-	"advent-of-code-2021/util"
 	"errors"
 	"fmt"
 	"log"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/bamsammich/advent-of-code-2021/util"
 
 	"github.com/echojc/aocutil"
 )

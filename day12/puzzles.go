@@ -1,59 +1,69 @@
 package day12
 
 import (
-	"advent-of-code-2021/util"
 	"fmt"
 	"log"
 	"regexp"
 	"strings"
 
+	"github.com/bamsammich/advent-of-code-2021/util"
+
 	"github.com/echojc/aocutil"
 )
 
-type Node struct {
-	Name            string
-	RemainingVisits int
-	Children        map[string]*Node
+func parseInput(input []string) map[string][]string {
+	var relMap = make(map[string][]string)
+	for _, relation := range input {
+		nodes := strings.Split(relation, "-")
+		if nodes[0] == "start" || nodes[1] == "end" {
+			relMap[nodes[0]] = append(relMap[nodes[0]], nodes[1])
+			continue
+		}
+		if nodes[1] == "start" || nodes[0] == "end" {
+			relMap[nodes[1]] = append(relMap[nodes[1]], nodes[0])
+			continue
+		}
+
+		relMap[nodes[0]] = append(relMap[nodes[0]], nodes[1])
+		relMap[nodes[1]] = append(relMap[nodes[1]], nodes[0])
+	}
+	return relMap
 }
 
-func parseInput(input []string) int {
-	var fn func(n *Node) *Node
-
-	fn = func(n *Node) *Node {
-		var remainingRelations []string
-		for i, rel := range input {
-			if !strings.Contains(rel, n.Name) {
-				remainingRelations = append(remainingRelations, rel)
-				continue
-			}
-			for _, name := range strings.Split(rel, "-") {
-				if name != n.Name {
-
-					continue
-				}
-				var child = Node{
-					Name:            strings.ReplaceAll(strings.ReplaceAll(rel, n.Name, ""), "-", ""),
-					RemainingVisits: 1,
-					Children:        make(map[string]*Node),
-				}
-				if regexp.MustCompile(`[A-Z]+`).MatchString(child.Name) {
-					child.RemainingVisits = 2
-				}
-				input = append(input[:i], input[i+1:]...)
-				n.Children[child.Name] = &child
-			}
+func Traverse(from string, relations map[string][]string, visits map[string]int) [][]string {
+	var (
+		neighbors = relations[from]
+		output    [][]string
+	)
+	for _, n := range neighbors {
+		if n == "end" {
+			output = append(output, []string{n})
+			continue
 		}
-		return n
+		if !regexp.MustCompile(`[A-Z]+`).MatchString(n) && visits[n] > 0 {
+			continue
+		}
+		visitsCheckpoint := make(map[string]int)
+		for k, v := range visits {
+			visitsCheckpoint[k] = v
+		}
+		visitsCheckpoint[n]++
+		// not the end or an already-visited small cave
+		for _, p := range Traverse(n, relations, visitsCheckpoint) {
+			nodes := append([]string{n}, p...)
+			output = append(output, nodes)
+		}
+
 	}
-	startNode := fn(&Node{"start", 1, make(map[string]*Node)})
-	fmt.Println(input)
-	fmt.Println(startNode)
-	return 0
+	return output
 }
 
 func puzzle1(data []string) int {
-	parseInput(data)
-	return 0
+	paths := Traverse("start", parseInput(data), map[string]int{})
+	for _, p := range paths {
+		fmt.Println(p)
+	}
+	return len(Traverse("start", parseInput(data), map[string]int{}))
 }
 
 func Run() {

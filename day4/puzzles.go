@@ -1,11 +1,12 @@
 package day4
 
 import (
-	"advent-of-code-2021/util"
 	"log"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/bamsammich/advent-of-code-2021/util"
 
 	"github.com/echojc/aocutil"
 )

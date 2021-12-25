@@ -1,10 +1,11 @@
 package day10
 
 import (
-	"advent-of-code-2021/util"
 	"fmt"
 	"log"
 	"sort"
+
+	"github.com/bamsammich/advent-of-code-2021/util"
 
 	"github.com/echojc/aocutil"
 )

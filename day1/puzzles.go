@@ -1,10 +1,11 @@
 package day1
 
 import (
-	"advent-of-code-2021/util"
 	"log"
 
 	"github.com/echojc/aocutil"
+
+	"github.com/bamsammich/advent-of-code-2021/util"
 )
 
 func puzzle1(input []int) int {
@@ -53,5 +54,6 @@ func Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	util.PrintResults(1, puzzle1(data), puzzle2(data))
 }

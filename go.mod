@@ -1,4 +1,4 @@
-module advent-of-code-2021
+module github.com/bamsammich/advent-of-code-2021
 
 go 1.16
 
